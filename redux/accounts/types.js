@@ -1,0 +1,4 @@
+export const CREATE_ACCOUNT = 'CREATE_ACCOUNT'
+export const REMOVE_ACCOUNT = 'REMOVE_ACCOUNT'
+export const EDIT_ACCOUNT = 'EDIT_ACCOUNT'
+export const GET_ACCOUNTS = 'GET_ACCOUNTS'
