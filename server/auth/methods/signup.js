@@ -11,12 +11,11 @@ const signup = async (req, res, next) => {
     })
     let account
     if (accountSlug) {
-      account = await Account.create({ slug: accountSlug })
+      account = await Account.create({ slug: accountSlug, name: accountSlug })
       await User_Account.create({
         admin: true,
         userId: user.id,
         accountId: account.id,
-        name: accountSlug,
       })
     }
     req.login(user, (error) => {
