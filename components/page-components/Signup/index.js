@@ -1,8 +1,17 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
-import { Header, Segment, Form, Button, Icon, Message } from 'semantic-ui-react'
+import {
+  Header,
+  Segment,
+  Form,
+  Button,
+  Icon,
+  Message,
+  Input,
+  Divider,
+} from 'semantic-ui-react'
 
 import { signupThunk } from '../../../redux/user'
 
@@ -11,32 +20,39 @@ const initialSignupFormData = {
   firstName: '',
   lastName: '',
   password: '',
-  confirmPassword: '',
 }
 
 export const Signup = () => {
   const dispatch = useDispatch()
   const router = useRouter()
+  // const { slug: accountSlug } = router.query
 
   const [loading, setLoading] = useState(false)
   const [signupFormData, setSignupFormData] = useState(initialSignupFormData)
+  const [accountSlug, setAccountSlug] = useState(router?.query?.slug || '')
 
-  const {
-    email,
-    firstName,
-    lastName,
-    password,
-    confirmPassword,
-  } = signupFormData
+  const { email, password } = signupFormData
 
   const handleChange = (_event, { name, value }) => {
-    setSignupFormData({ ...signupFormData, [name]: value })
+    const formatedValue = value.replaceAll('[^a-zA-Z0-9]+', '')
+    setSignupFormData({
+      ...signupFormData,
+      [name]: formatedValue.toLowerCase(),
+    })
   }
 
   const handleSubmit = () => {
     setLoading(true)
-    dispatch(signupThunk({ payload: signupFormData, router, setLoading }))
+    dispatch(
+      signupThunk({
+        payload: { ...signupFormData, accountSlug },
+        router,
+        setLoading,
+      })
+    )
   }
+
+  useEffect(() => setAccountSlug(router?.query?.slug), [router?.query?.slug])
 
   return (
     <>
@@ -44,6 +60,14 @@ export const Signup = () => {
         Signup
       </Header>
       <Segment stacked>
+        <Input
+          style={{ marginBottom: '1em' }}
+          onChange={(_e, { value }) => setAccountSlug(value)}
+          value={accountSlug}
+          fluid
+          label="linksmart.app/"
+          placeholder="Your name, business, product..."
+        />
         <Form>
           <Form.Input
             fluid
@@ -54,23 +78,6 @@ export const Signup = () => {
             value={email}
             onChange={handleChange}
           />
-          <Form.Group widths="equal">
-            <Form.Input
-              fluid
-              required
-              name="firstName"
-              placeholder="First Name"
-              value={firstName}
-              onChange={handleChange}
-            />
-            <Form.Input
-              fluid
-              name="lastName"
-              placeholder="Last Name"
-              value={lastName}
-              onChange={handleChange}
-            />
-          </Form.Group>
           <Form.Input
             fluid
             icon="lock"
@@ -81,28 +88,17 @@ export const Signup = () => {
             value={password}
             onChange={handleChange}
           />
-          <Form.Input
-            fluid
-            icon="lock"
-            name="confirmPassword"
-            iconPosition="left"
-            placeholder="Confirm Password"
-            type="password"
-            value={confirmPassword}
-            onChange={handleChange}
-          />
-
           <Button
             icon
-            labelPosition="left"
+            labelPosition="right"
             loading={loading}
             primary
             fluid
             size="large"
             onClick={handleSubmit}
           >
-            <Icon name="key" />
             Signup
+            <Icon name="right arrow" />
           </Button>
         </Form>
       </Segment>
