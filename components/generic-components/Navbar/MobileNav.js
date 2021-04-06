@@ -5,7 +5,7 @@ import { Sidebar, Menu, Icon } from 'semantic-ui-react'
 
 import { LoginSignup } from './LoginSignup'
 import { Logout } from './Logout'
-import { navItems } from './navItems'
+import { loggedInNavItems, notLoggedInNavItems } from './navItems'
 import { NavLink } from './NavLink'
 
 export const MobileNav = (props) => {
@@ -15,6 +15,8 @@ export const MobileNav = (props) => {
   const { pathname } = useRouter()
 
   const closeMenu = () => setSidebarOpened(false)
+
+  const navItems = loggedIn ? loggedInNavItems : notLoggedInNavItems
 
   return (
     <>

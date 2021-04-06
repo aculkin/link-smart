@@ -4,17 +4,19 @@ import { useSelector } from 'react-redux'
 
 import { LoginSignup } from './LoginSignup'
 import { Logout } from './Logout'
-import { navItems } from './navItems'
 import { NavLink } from './NavLink'
+import { loggedInNavItems, notLoggedInNavItems } from './navItems'
 
 export const DesktopNav = (props) => {
   const loggedIn = useSelector((state) => !!state?.user?.id)
 
   const { pathname } = useRouter()
 
+  const navItems = loggedIn ? loggedInNavItems : notLoggedInNavItems
+
   return (
-    <>
-      <Menu fixed="top">
+    <div>
+      <Menu fixed="top" style={{ height: '49' }}>
         <Container>
           {navItems.map((navItem) => {
             return (
@@ -31,6 +33,6 @@ export const DesktopNav = (props) => {
         </Container>
       </Menu>
       {props.children}
-    </>
+    </div>
   )
 }
