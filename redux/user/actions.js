@@ -2,6 +2,8 @@ import { LOGIN, LOGOUT, SIGNUP, ME, EDIT } from './types'
 import { toast } from '../../utility/front-end'
 import { API } from '../../API'
 
+import { getAccounts } from '../accounts/actions'
+
 //User actions
 export const signup = (payload) => ({ type: SIGNUP, payload })
 export const login = (payload) => ({ type: LOGIN, payload })
@@ -14,8 +16,11 @@ export const signupThunk = ({ payload, router, setLoading }) => async (
   dispatch
 ) => {
   try {
-    const { data: user } = await API.auth.signup(payload)
+    const {
+      data: { user, account },
+    } = await API.auth.signup(payload)
     dispatch(signup(user))
+    dispatch(getAccounts([account]))
     setLoading(false)
     toast('Your Account was created succssfully!', 'positive')
     router.push('/dashboard')

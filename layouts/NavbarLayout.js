@@ -4,7 +4,7 @@ import { Footer } from '../components/generic-components/Footer'
 export const NavbarLayout = (props) => {
   return (
     <Navbar>
-      <div style={{ marginTop: '49px', height: '70vh' }}>
+      <div style={{ paddingTop: '49px' }}>
         {props.children}
         <Footer />
       </div>

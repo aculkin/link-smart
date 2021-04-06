@@ -32,7 +32,7 @@ export const Dashboard = () => {
 
   useEffect(() => {
     setSelectedAccountId(accounts?.[0]?.id)
-  }, [accounts.length])
+  }, [accounts?.length])
 
   useEffect(refreshLinks, [selectedAccountId])
 
