@@ -12,7 +12,7 @@ const { isLoggedIn } = require('../utility')
 
 module.exports = router
 
-router.get('/my-accounts', isLoggedIn, loadMyAccounts)
+router.get('/my-accounts', loadMyAccounts)
 
 router.post('/', createAccount)
 
