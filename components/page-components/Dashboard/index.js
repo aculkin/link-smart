@@ -36,7 +36,7 @@ export const Dashboard = () => {
 
   useEffect(refreshLinks, [selectedAccountId])
 
-  const selectedAccount = accounts.find(
+  const selectedAccount = accounts?.find(
     (account) => account.id === selectedAccountId
   )
 

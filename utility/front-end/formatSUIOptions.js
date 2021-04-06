@@ -1,5 +1,5 @@
 const formatSUIOptions = (items, displayProperty) => {
-  if (items.length > 0) {
+  if (items?.length > 0) {
     return items.map((item, index) => {
       const key = item.id || index
       const text = displayProperty
