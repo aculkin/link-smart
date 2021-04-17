@@ -7,7 +7,16 @@ const getAccountWithLinks = async (slug) => {
       include: [
         {
           model: Link,
-          attributes: ['id', 'name', 'url', 'accountId', 'imageId'],
+          where: { active: true },
+          attributes: [
+            'id',
+            'name',
+            'url',
+            'accountId',
+            'imageId',
+            'passthrough',
+            'priority',
+          ],
         },
         {
           model: Image,
