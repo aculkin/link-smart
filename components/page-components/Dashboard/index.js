@@ -83,30 +83,39 @@ export const Dashboard = () => {
             </Button>
           </Grid.Column>
         </Grid.Row>
+        <Divider />
+        <Grid.Row>
+          <Grid.Column width="8">
+            {links.length > 0 ? (
+              <>
+                <Segment attached>
+                  <Item.Group divided>
+                    {links.map((link, index) => {
+                      return (
+                        <DashboardLink key={link?.id || index} link={link} />
+                      )
+                    })}
+                  </Item.Group>
+                </Segment>
+                <NewLinkButton
+                  accountId={selectedAccountId}
+                  attached="bottom"
+                />
+              </>
+            ) : (
+              <Segment placeholder>
+                <Header icon>
+                  <Icon name="chain" />
+                  No links for this account, click the button below to add one!
+                </Header>
+                <NewLinkButton accountId={selectedAccountId} />
+              </Segment>
+            )}
+          </Grid.Column>
+          <Grid.Column width="8"></Grid.Column>
+        </Grid.Row>
       </Grid>
-
       <Divider />
-      {links.length > 0 ? (
-        <>
-          <Segment attached>
-            <Item.Group divided>
-              {links.map((link, index) => {
-                return <DashboardLink key={link?.id || index} link={link} />
-              })}
-            </Item.Group>
-          </Segment>
-          <NewLinkButton accountId={selectedAccountId} attached="bottom" />
-        </>
-      ) : (
-        <Segment placeholder>
-          <Header icon>
-            <Icon name="chain" />
-            No links for this account, click the button below to add one!
-          </Header>
-          <NewLinkButton accountId={selectedAccountId} />
-        </Segment>
-      )}
-      <Divider hidden />
     </Container>
   )
 }
