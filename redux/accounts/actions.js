@@ -34,35 +34,52 @@ export const getAccountsThunk = () => async (dispatch) => {
     return error
   }
 }
-export const createAccountThunk = (accountDetails) => async (dispatch) => {
+export const createAccountThunk = ({
+  accountDetails,
+  afterSuccess,
+  afterFailure,
+}) => async (dispatch) => {
   try {
     const { data: newAccount } = await API.accounts.create(accountDetails)
     dispatch(createAccount(newAccount))
+    afterSuccess && afterSuccess(newAccount)
   } catch (error) {
     console.log(error)
+    afterFailure && afterFailure()
     return error
   }
 }
-export const editAccountThunk = (accountId, accountDetails) => async (
-  dispatch
-) => {
+export const editAccountThunk = ({
+  accountId,
+  accountDetails,
+  afterSuccess,
+  afterFailure,
+}) => async (dispatch) => {
   try {
     const { data: editedAccount } = await API.accounts.update(
       accountId,
       accountDetails
     )
     dispatch(editAccount(editedAccount))
+    afterSuccess && afterSuccess()
   } catch (error) {
     console.log(error)
+    afterFailure && afterFailure()
     return error
   }
 }
-export const removeAccountThunk = (accountId) => async (dispatch) => {
+export const removeAccountThunk = ({
+  accountId,
+  afterSuccess,
+  afterFailure,
+}) => async (dispatch) => {
   try {
     await API.accounts.delete(accountId)
     dispatch(removeAccount(accountId))
+    afterSuccess && afterSuccess()
   } catch (error) {
     console.log(error)
+    afterFailure && afterFailure()
     return error
   }
 }
