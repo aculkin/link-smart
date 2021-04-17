@@ -1,12 +1,16 @@
+import { useRouter } from 'next/router'
 import { Link } from '../../components/page-components/Link'
-import {
-  getAccountPaths,
-  getAccountWithLinks,
-} from '../../next-data-fetching'
+import { getAccountPaths, getAccountWithLinks } from '../../next-data-fetching'
 const ONE_MINUTE_IN_SECONDS = 60
 
 export const StaticLinkPage = ({ account }) => {
-  return <Link account={account} />
+  const router = useRouter()
+  const passthroughLink = account?.links?.find((link) => link?.passthrough)
+  if (passthroughLink?.url && process.browser) {
+    router.replace(passthroughLink?.url)
+  } else {
+    return <Link account={account} />
+  }
 }
 
 export const getStaticPaths = async () => {
