@@ -2,7 +2,7 @@ require('dotenv').config()
 const Sequelize = require('sequelize')
 
 const databaseUrl =
-  process.env.DATABASE_URL || `postgres://postgres@localhost:5432/link-service`
+  process.env.DATABASE_URL || `postgres://postgres@localhost:5432/link-smart`
 
 const herokuDialectOptions = {
   ssl: {
