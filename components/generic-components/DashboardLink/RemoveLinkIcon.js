@@ -23,7 +23,13 @@ export const RemoveLinkIcon = ({ linkId }) => {
         position="top center"
         content="Delete this link"
         trigger={
-          <Icon link name="trash" onClick={toggleConfirm} disabled={!linkId} />
+          <Icon
+            link
+            size="large"
+            name="trash"
+            onClick={toggleConfirm}
+            disabled={!linkId}
+          />
         }
       />
       {linkId && (
