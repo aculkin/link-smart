@@ -3,20 +3,36 @@ import { useDispatch } from 'react-redux'
 import { Button, Modal, Icon, Input, Grid } from 'semantic-ui-react'
 
 import { createAccountThunk } from '../../../redux/accounts'
+import { toast } from '../../../utility/front-end'
 
 const initialAccountDetails = {
   name: '',
   slug: '',
 }
 
-export const NewAccountButton = (props) => {
+export const NewAccountButton = ({ setSelectedAccountId, ...props }) => {
   const dispatch = useDispatch()
+  const [loading, setLoading] = useState(false)
   const [accountDetails, setAccountDetails] = useState(initialAccountDetails)
   const [modalOpen, setModalOpen] = useState(false)
   const { name, slug } = accountDetails
 
   const createAccount = () => {
-    dispatch(createAccountThunk(accountDetails))
+    setLoading(true)
+    dispatch(
+      createAccountThunk({
+        accountDetails,
+        afterSuccess: (newAccount) => {
+          setLoading(false)
+          setModalOpen(false)
+          setSelectedAccountId(newAccount?.id)
+        },
+        afterFailure: () => {
+          setLoading(false)
+          toast('Something went wrong', 'negative')
+        },
+      })
+    )
   }
 
   const handleChange = (_e, { name: inputName, value }) => {
@@ -27,7 +43,7 @@ export const NewAccountButton = (props) => {
   return (
     <>
       <Button
-        secondary
+        color="green"
         labelPosition="right"
         icon
         {...props}
@@ -72,7 +88,7 @@ export const NewAccountButton = (props) => {
           <Button secondary onClick={() => setModalOpen(false)}>
             Nevermind
           </Button>
-          <Button primary onClick={createAccount} positive>
+          <Button loading={loading} primary onClick={createAccount} positive>
             Create Page
           </Button>
         </Modal.Actions>
