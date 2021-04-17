@@ -15,6 +15,7 @@ import {
 import { getLinksThunk } from '../../../redux/links'
 import { DashboardLink } from '../../generic-components/DashboardLink'
 import { NewLinkButton } from '../../generic-components/NewLinkButton'
+import { EditAccountModal } from '../../generic-components/EditAccountModal'
 import { NewAccountButton } from '../../generic-components/NewAccountButton'
 import { formatSUIOptions } from '../../../utility/front-end'
 
@@ -43,12 +44,19 @@ export const Dashboard = () => {
   return (
     <Container>
       <Header textAlign="center" as="h1">
-        Dashboard
+        Dashboard: {selectedAccount?.name}
       </Header>
       <Grid>
         <Grid.Row>
           <Grid.Column width="4">
+            <NewAccountButton
+              fluid
+              setSelectedAccountId={setSelectedAccountId}
+            />
+          </Grid.Column>
+          <Grid.Column width="3">
             <Dropdown
+              fluid
               value={selectedAccountId}
               onChange={(_e, { value }) => {
                 console.log('CHANGING')
@@ -60,9 +68,9 @@ export const Dashboard = () => {
             />
           </Grid.Column>
           <Grid.Column width="4">
-            <NewAccountButton fluid />
+            <EditAccountModal account={selectedAccount} />
           </Grid.Column>
-          <Grid.Column width="8">
+          <Grid.Column width="5">
             <Button
               fluid
               icon
@@ -70,7 +78,7 @@ export const Dashboard = () => {
               href={`/${selectedAccount?.slug}`}
               target="_blank"
             >
-              Visit: https://www.link.com/{selectedAccount?.slug}{' '}
+              https://www.linksmart.com/{selectedAccount?.slug}{' '}
               <Icon name="external" />
             </Button>
           </Grid.Column>
