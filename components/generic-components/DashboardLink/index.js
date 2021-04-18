@@ -10,30 +10,59 @@ import { editLinkThunk } from '../../../redux/links'
 
 export const DashboardLink = ({ link }) => {
   const { url, name, passthrough, active, priority } = link
+  const [linkTextFields, setLinkTextFields] = useState({
+    name,
+    url,
+  })
+
   const dispatch = useDispatch()
 
-  const handleChange = (_e, { name, value }) => {
-    dispatch(editLinkThunk(link.id, { ...link, [name]: value }))
+  const handleTextChange = (_e, { name, value }) => {
+    setLinkTextFields({ ...linkTextFields, [name]: value })
   }
 
   const toggleAttribute = (attribute, value) => () => {
     dispatch(editLinkThunk(link.id, { ...link, [attribute]: value }))
   }
 
+  const onBlur = (fieldName) => () => {
+    if (linkTextFields[fieldName] !== link[fieldName]) {
+      dispatch(
+        editLinkThunk(link.id, {
+          ...link,
+          [fieldName]: linkTextFields[fieldName],
+        })
+      )
+    }
+  }
+
+  useEffect(() => {
+    setLinkTextFields({ name, url })
+  }, [link])
+
   return (
     <Item>
       <Item.Content>
         <Item.Header>
-          <Input transparent name="name" value={name} onChange={handleChange} />
+          <Input
+            onBlur={onBlur('name')}
+            placeholder="Display name..."
+            transparent
+            name="name"
+            value={linkTextFields?.name || ''}
+            onChange={handleTextChange}
+          />
         </Item.Header>
         <Item.Meta>
           <Input
             fluid
+            onBlur={onBlur('url')}
+            placeholder="Url..."
             transparent
             size="small"
             name="url"
-            value={url}
-            onChange={handleChange}
+            value={linkTextFields?.url || ''}
+            onChange={handleTextChange}
           />
         </Item.Meta>
         <Item.Extra>
