@@ -49,7 +49,7 @@ export const NewAccountButton = ({ setSelectedAccountId, ...props }) => {
         {...props}
         onClick={() => setModalOpen(!modalOpen)}
       >
-        New account
+        New page
         <Icon name="plus" />
       </Button>
       <Modal
