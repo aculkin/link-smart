@@ -56,12 +56,13 @@ export const editAccountThunk = ({
   afterFailure,
 }) => async (dispatch) => {
   try {
-    const { data: editedAccount } = await API.accounts.update(
+    const { data: editedAccount, status } = await API.accounts.update(
       accountId,
       accountDetails
     )
     dispatch(editAccount(editedAccount))
-    afterSuccess && afterSuccess()
+    const successfulEdit = status === 200
+    afterSuccess && afterSuccess(editedAccount, successfulEdit)
   } catch (error) {
     console.log(error)
     afterFailure && afterFailure()

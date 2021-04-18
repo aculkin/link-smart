@@ -16,14 +16,22 @@ export const EditAccountForm = ({ account, setOpen }) => {
   }
 
   const handleSubmit = () => {
+    const oldSlug = account.slug
     setLoading(true)
     dispatch(
       editAccountThunk({
         accountId: account?.id,
         accountDetails: editedAccount,
-        afterSuccess: () => {
+        afterSuccess: (newAccountDetails, successfulEdit) => {
+          if (successfulEdit) {
+            toast('Success!', 'positive')
+          } else {
+            toast(
+              `Sorry, the url ${editedAccount.slug} is already in use, please choose a different url`
+            )
+            setEditedAccount({ ...newAccountDetails, slug: oldSlug })
+          }
           setLoading(false)
-        //   setOpen(false)
         },
         afterFailure: () => {
           setLoading(false)
@@ -70,6 +78,7 @@ export const EditAccountForm = ({ account, setOpen }) => {
       />
       <Form.Group>
         <Form.Button
+          type="button"
           loading={deleteLoading}
           color="red"
           onClick={handleDeleteAccount}
