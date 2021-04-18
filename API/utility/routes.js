@@ -19,6 +19,7 @@ export const routes = {
     base: '/api/accounts',
     specific: (id) => `/api/accounts/${id}`,
     loadMyAccounts: '/api/accounts/my-accounts',
+    checkSlug: (slug) => `/api/accounts/check-slug/${slug}`,
   },
   images: {
     base: '/api/images',

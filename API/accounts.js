@@ -12,4 +12,5 @@ export const accounts = {
     await axios.put(routes.accounts.specific(accountId), accountInfo),
   delete: async (accountId) =>
     axios.delete(routes.accounts.specific(accountId)),
+  checkSlug: async (slug) => await axios.get(routes.accounts.checkSlug(slug)),
 }
