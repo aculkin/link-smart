@@ -1,11 +1,22 @@
 import { Container } from 'semantic-ui-react'
+
 import { Link } from './Link'
 
-export const LinkList = ({ links }) => {
+const filterOutNoUrlLinks = (link) => !!link?.url
+
+export const LinkList = ({ links, preview, priorityColor, linkColor }) => {
   return (
     <Container>
-      {links.map((link) => {
-        return <Link key={link.name} link={link} />
+      {links.filter(filterOutNoUrlLinks).map((link) => {
+        return (
+          <Link
+            key={link.name}
+            link={link}
+            preview={preview}
+            priorityColor={priorityColor || 'blue'}
+            linkColor={linkColor || 'grey'}
+          />
+        )
       })}
     </Container>
   )
