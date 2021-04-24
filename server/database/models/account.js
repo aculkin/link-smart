@@ -13,6 +13,15 @@ const Account = db.define(
       type: Sequelize.STRING,
       require: true,
     },
+    backgroundColor: {
+      type: Sequelize.STRING,
+    },
+    linkColor: {
+      type: Sequelize.STRING,
+    },
+    priorityColor: {
+      type: Sequelize.STRING,
+    },
   },
   {
     paranoid: true,
