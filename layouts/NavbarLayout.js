@@ -6,7 +6,7 @@ export const NavbarLayout = (props) => {
     <Navbar>
       <div style={{ paddingTop: '49px' }}>
         {props.children}
-        <Footer />
+        {/* <Footer /> */}
       </div>
     </Navbar>
   )
