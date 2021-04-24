@@ -13,12 +13,13 @@ const createAccount = async (req, res, next) => {
       })
       await createdAccount.setUsers([req.user])
       res.status(200).json(createdAccount)
+    } else {
+      res
+        .status(405)
+        .json(
+          'There is already an account with that slug, please select a different slug'
+        )
     }
-    res
-      .status(405)
-      .json(
-        'There is already an account with that slug, please select a different slug'
-      )
   } catch (error) {
     next(error)
   }
