@@ -3,7 +3,13 @@ const { Link } = require('../../../database/models')
 const createLink = async (req, res, next) => {
   try {
     const { name, url, accountId, imageId } = req.body
-    const createdLink = await Link.create({ name, url, accountId, imageId })
+    const createdLink = await Link.create({
+      name,
+      url,
+      accountId,
+      imageId,
+      active: false,
+    })
     res.status(201).json(createdLink)
   } catch (error) {
     next(error)

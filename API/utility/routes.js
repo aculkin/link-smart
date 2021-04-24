@@ -19,10 +19,19 @@ export const routes = {
     base: '/api/accounts',
     specific: (id) => `/api/accounts/${id}`,
     loadMyAccounts: '/api/accounts/my-accounts',
+    checkSlug: (slug) => `/api/accounts/check-slug/${slug}`,
   },
   images: {
     base: '/api/images',
     specific: (id) => `/api/images/${id}`,
+  },
+  clicks: {
+    base: '/api/clicks',
+    recordClick: (linkId) => `/api/clicks/link/${linkId}`,
+  },
+  views: {
+    base: '/api/views',
+    recordView: (accountId) => `/api/views/account/${accountId}`,
   },
 }
 

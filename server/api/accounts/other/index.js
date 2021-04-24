@@ -1,3 +1,4 @@
 const loadMyAccounts = require('./loadMyAccounts')
+const checkSlug = require('./checkSlug')
 
-module.exports = { loadMyAccounts }
+module.exports = { loadMyAccounts, checkSlug }

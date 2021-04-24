@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "postgres",
-    "database": "link-service",
+    "database": "link-smart",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },

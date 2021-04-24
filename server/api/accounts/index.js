@@ -7,10 +7,12 @@ const {
   deleteAccount,
   getAccount,
 } = require('./crud')
-const { loadMyAccounts } = require('./other')
+const { loadMyAccounts, checkSlug } = require('./other')
 const { isLoggedIn } = require('../utility')
 
 module.exports = router
+
+router.get('/check-slug/:slug', checkSlug)
 
 router.get('/my-accounts', loadMyAccounts)
 

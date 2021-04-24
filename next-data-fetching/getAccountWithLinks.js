@@ -1,4 +1,4 @@
-const { Account, Link, Image } = require('../server/database/models')
+const { Account, Link, Image, View } = require('../server/database/models')
 
 const getAccountWithLinks = async (slug) => {
   try {
@@ -7,14 +7,31 @@ const getAccountWithLinks = async (slug) => {
       include: [
         {
           model: Link,
-          attributes: ['id', 'name', 'url', 'accountId', 'imageId'],
+          where: { active: true },
+          attributes: [
+            'id',
+            'name',
+            'url',
+            'accountId',
+            'imageId',
+            'passthrough',
+            'priority',
+          ],
         },
         {
           model: Image,
           attributes: ['id', 'key', 'url', 'altText'],
         },
       ],
-      attributes: ['id', 'name', 'slug', 'imageId'],
+      attributes: [
+        'id',
+        'name',
+        'slug',
+        'imageId',
+        'backgroundColor',
+        'linkColor',
+        'priorityColor',
+      ],
     })
     return JSON.parse(JSON.stringify(account))
   } catch (error) {
