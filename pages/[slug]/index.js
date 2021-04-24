@@ -1,51 +1,31 @@
 import { useRouter } from 'next/router'
-import { Link } from '../../components/page-components/Link'
-import { getAccountPaths, getAccountWithLinks } from '../../next-data-fetching'
-const ONE_MINUTE_IN_SECONDS = 60
 
-export const StaticLinkPage = ({ account }) => {
+import { Link } from '../../components/page-components/Link'
+import { getAccountWithLinks } from '../../next-data-fetching'
+
+export const DynamicLinkPage = ({ account }) => {
   const router = useRouter()
   const passthroughLink = account?.links?.find((link) => link?.passthrough)
+  console.log(account)
   if (passthroughLink?.url && process.browser) {
     router.replace(passthroughLink?.url)
+    return <div>Redirecting...</div>
   } else {
     return <Link account={account} />
   }
 }
 
-export const getStaticPaths = async () => {
-  try {
-    const paths = await getAccountPaths()
+export async function getServerSideProps({ params }) {
+  const account = await getAccountWithLinks(params.slug)
+  if (account) {
     return {
-      paths: paths || [],
-      fallback: true,
+      props: { account },
     }
-  } catch (error) {
-    return {
-      notFound: true,
-    }
-  }
-}
-
-export const getStaticProps = async ({ params }) => {
-  try {
-    const { slug } = params
-    const account = await getAccountWithLinks(slug)
-    if (account) {
-      return {
-        props: { account },
-        revalidate: ONE_MINUTE_IN_SECONDS,
-      }
-    } else {
-      return {
-        notFound: true,
-      }
-    }
-  } catch (error) {
+  } else {
     return {
       notFound: true,
     }
   }
 }
 
-export default StaticLinkPage
+export default DynamicLinkPage
