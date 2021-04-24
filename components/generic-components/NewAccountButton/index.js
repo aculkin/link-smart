@@ -60,7 +60,7 @@ export const NewAccountButton = ({ setSelectedAccountId, ...props }) => {
       >
         <Modal.Header>New Account</Modal.Header>
         <Modal.Content>
-          <Grid>
+          <Grid stackable>
             <Grid.Row columns="2">
               <Grid.Column>
                 <Input
@@ -74,7 +74,7 @@ export const NewAccountButton = ({ setSelectedAccountId, ...props }) => {
               <Grid.Column>
                 <Input
                   fluid
-                  label="www.link.com/"
+                  label="linksmart.app/"
                   placeholder="Slug"
                   name="slug"
                   onChange={handleChange}
