@@ -19,30 +19,55 @@ export const Home = () => {
     }
   }
   return (
-    <div>
+    <div
+      style={{
+        backgroundImage: 'url(/background.jpg)',
+        backgroundSize: 'cover',
+        minHeight: 'calc(100vh - 35px)',
+      }}
+    >
       <Container>
-        <Grid>
-          <Grid.Row columns="2">
-            <Grid.Column>
-              <Header as="h1" style={{ marginTop: '4em' }}>
+        <Grid centered stackable>
+          <Grid.Row>
+            <Grid.Column width="10">
+              <Header
+                textAlign="center"
+                as="h1"
+                style={{
+                  marginTop: '1em',
+                  fontSize: '5em',
+                  fontWeight: 'bold',
+                  color: 'white',
+                  fontWeight: 'bold',
+                  textShadow: '2px 2px 8px #000000',
+                }}
+              >
                 Link Smart
+                <Header.Subheader
+                  style={{
+                    marginTop: '1em',
+                    marginBottom: '3em',
+                    fontSize: '.4em',
+                    fontWeight: 'bold',
+                    color: 'white',
+                    fontWeight: 'bold',
+                    textShadow: '2px 2px 8px #000000',
+                  }}
+                >
+                  Next Generation One-Link Tool
+                </Header.Subheader>
               </Header>
-              <p style={{ marginBottom: '4em' }}>
-                Next generation one-link tool
-              </p>
               <Input
+                fluid
                 onChange={onChange}
                 value={slug}
-                fluid
                 label="linksmart.app/"
                 placeholder="Your name, business, product..."
                 action={{
                   href: `/signup?slug=${slug}`,
                   color: 'green',
                   disabled: !validSlug,
-                  content: validSlug
-                    ? 'Signup for free'
-                    : "That one's been taken!",
+                  content: validSlug ? 'Signup' : "That one's been taken!",
                 }}
               />
             </Grid.Column>
