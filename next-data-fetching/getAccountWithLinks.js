@@ -1,4 +1,4 @@
-const { Account, Link, Image } = require('../server/database/models')
+const { Account, Link, Image, View } = require('../server/database/models')
 
 const getAccountWithLinks = async (slug) => {
   try {
@@ -23,7 +23,15 @@ const getAccountWithLinks = async (slug) => {
           attributes: ['id', 'key', 'url', 'altText'],
         },
       ],
-      attributes: ['id', 'name', 'slug', 'imageId'],
+      attributes: [
+        'id',
+        'name',
+        'slug',
+        'imageId',
+        'backgroundColor',
+        'linkColor',
+        'priorityColor',
+      ],
     })
     return JSON.parse(JSON.stringify(account))
   } catch (error) {
