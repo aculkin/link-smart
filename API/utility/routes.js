@@ -25,6 +25,14 @@ export const routes = {
     base: '/api/images',
     specific: (id) => `/api/images/${id}`,
   },
+  clicks: {
+    base: '/api/clicks',
+    recordClick: (linkId) => `/api/clicks/link/${linkId}`,
+  },
+  views: {
+    base: '/api/views',
+    recordView: (accountId) => `/api/views/account/${accountId}`,
+  },
 }
 
 export default routes
