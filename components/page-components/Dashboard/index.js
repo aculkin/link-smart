@@ -53,6 +53,9 @@ export const Dashboard = () => {
     <Container>
       <Header textAlign="center" as="h1">
         Dashboard: {selectedAccount?.name}
+        <Header.Subheader>
+          <b>{selectedAccount?.views?.length}</b> page views
+        </Header.Subheader>
       </Header>
       <Grid stackable>
         <Grid.Row>
