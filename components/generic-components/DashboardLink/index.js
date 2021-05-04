@@ -6,6 +6,7 @@ import { RemoveLinkIcon } from './RemoveLinkIcon'
 import { ActiveSwitch } from './ActiveSwitch'
 import { PassthroughIcon } from './PassthroughIcon'
 import { PriorityIcon } from './PriorityIcon'
+import { AnalyticsLabel } from './AnalyticsLabel'
 import { editLinkThunk } from '../../../redux/links'
 
 export const DashboardLink = ({ link }) => {
@@ -65,14 +66,17 @@ export const DashboardLink = ({ link }) => {
             onChange={handleTextChange}
           />
         </Item.Meta>
+        <Item.Description>
+          <ActiveSwitch toggleAttribute={toggleAttribute} active={active} />
+        </Item.Description>
         <Item.Extra>
+          <AnalyticsLabel clicks={link?.clicks?.length || 0} />
           <PassthroughIcon
             toggleAttribute={toggleAttribute}
             passthrough={passthrough}
           />
           <PriorityIcon toggleAttribute={toggleAttribute} priority={priority} />
           <RemoveLinkIcon linkId={link?.id} />
-          <ActiveSwitch toggleAttribute={toggleAttribute} active={active} />
         </Item.Extra>
       </Item.Content>
     </Item>
