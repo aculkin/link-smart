@@ -85,7 +85,7 @@ export const Dashboard = () => {
                 labelPosition="left"
                 primary
                 onClick={copyToClipboard(
-                  `linksmart.com/${selectedAccount?.slug}`
+                  `linksmart.app/${selectedAccount?.slug}`
                 )}
               >
                 Copy link <Icon name="copy" />
