@@ -1,9 +1,10 @@
 const iphoneStyle = {
   maxWitdh: '100px',
-  minHeight: '500px',
+  minHeight: '400px',
   border: '6px solid #000000',
-  borderRadius: '25px',
-  padding: '5px'
+  borderRadius: '20px',
+  // padding: '5px',
+  margin: '5px',
 }
 
 export const IphoneContainer = ({ children }) => {

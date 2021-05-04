@@ -10,7 +10,7 @@ export const EditAccountModal = ({ account }) => {
     <>
       <Button fluid icon labelPosition="right" onClick={setModalState(true)}>
         <Icon name="settings" />
-        Account Settings
+        Page Settings
       </Button>
       <Modal
         closeIcon
