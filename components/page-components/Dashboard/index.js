@@ -20,13 +20,18 @@ import { NewAccountButton } from '../../generic-components/NewAccountButton'
 import { IphoneContainer } from '../../generic-components/IphoneContainer'
 import { ColorSelector } from '../../generic-components/ColorSelector'
 import { Link } from '../../page-components/Link'
-import { formatSUIOptions } from '../../../utility/front-end'
+import { formatSUIOptions, toast } from '../../../utility/front-end'
 
 export const Dashboard = () => {
   const dispatch = useDispatch()
   const [selectedAccountId, setSelectedAccountId] = useState(0)
   const accounts = useSelector((state) => state.accounts)
   const links = useSelector((state) => state.links)
+
+  const copyToClipboard = (text) => () => {
+    navigator.clipboard.writeText(text)
+    toast(`Your link has been copied to your clipboard`, 'positive')
+  }
 
   const refreshLinks = () => {
     if (selectedAccountId && selectedAccountId > 0) {
@@ -51,7 +56,7 @@ export const Dashboard = () => {
       </Header>
       <Grid stackable>
         <Grid.Row>
-          <Grid.Column width="4">
+          <Grid.Column width="3">
             <NewAccountButton
               fluid
               setSelectedAccountId={setSelectedAccountId}
@@ -73,17 +78,27 @@ export const Dashboard = () => {
           <Grid.Column width="4">
             <EditAccountModal account={selectedAccount} />
           </Grid.Column>
-          <Grid.Column width="5">
-            <Button
-              fluid
-              icon
-              labelPosition="right"
-              href={`/${selectedAccount?.slug}`}
-              target="_blank"
-            >
-              https://www.linksmart.com/{selectedAccount?.slug}{' '}
-              <Icon name="external" />
-            </Button>
+          <Grid.Column width="6">
+            <Button.Group fluid>
+              <Button
+                icon
+                labelPosition="left"
+                primary
+                onClick={copyToClipboard(
+                  `linksmart.com/${selectedAccount?.slug}`
+                )}
+              >
+                Copy link <Icon name="copy" />
+              </Button>
+              <Button
+                icon
+                labelPosition="right"
+                href={`/${selectedAccount?.slug}`}
+                target="_blank"
+              >
+                linksmart.app/{selectedAccount?.slug} <Icon name="external" />
+              </Button>
+            </Button.Group>
           </Grid.Column>
         </Grid.Row>
         <Divider />
