@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-// import { ChromePicker } from 'react-color'
 import { Form } from 'semantic-ui-react'
 
+import { BackgroundColorPicker } from '../BackgroundColorPicker'
 import { editAccountThunk } from '../../../redux/accounts'
 
 const colorOptions = [
@@ -91,16 +91,6 @@ export const ColorSelector = ({ account }) => {
     setColors({ ...colors, [name]: value })
   }
 
-  //   const handleColorChange = (color) => {
-  //     dispatch(
-  //       editAccountThunk({
-  //         accountId: account?.id,
-  //         accountDetails: { ...account, backgroundColor: color },
-  //       })
-  //     )
-  //     setColors({ ...colors, backgroundColor: color })
-  //   }
-
   useEffect(() => {
     setColors({
       backgroundColor: account?.backgroundColor,
@@ -132,11 +122,8 @@ export const ColorSelector = ({ account }) => {
           options={colorOptions}
           value={account?.priorityColor}
         />
+        <BackgroundColorPicker account={account} />
       </Form>
-      {/* <ChromePicker
-        onChange={handleColorChange}
-        color={account?.backgroundColor}
-      /> */}
     </>
   )
 }
