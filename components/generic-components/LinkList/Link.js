@@ -11,14 +11,14 @@ const convertUrl = (uneditedUrl) => {
   }
 }
 
-export const Link = ({ link, preview, priorityColor, linkColor }) => {
+export const Link = ({ link, preview, priorityColor, linkColor, viewId }) => {
   const router = useRouter()
   const { id: linkId, name, url, priority } = link
 
   const navigateToUrl = async () => {
     const correctUrl = convertUrl(url)
     try {
-      const clickDetails = {}
+      const clickDetails = { viewId }
       if (process.browser && !preview) {
         await API.clicks.registerClick(linkId, clickDetails)
       }
