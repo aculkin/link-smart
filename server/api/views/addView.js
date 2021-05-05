@@ -3,8 +3,9 @@ const { View } = require('../../database/models')
 const addView = async (req, res, next) => {
   try {
     const { accountId } = req.params
-    await View.create({ accountId })
-    res.status(200).send()
+    const { referrer, deviceType } = req.body
+    const view = await View.create({ accountId, referrer, deviceType })
+    res.status(200).json(view)
   } catch (error) {
     next(error)
   }
