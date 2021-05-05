@@ -19,6 +19,9 @@ View.belongsTo(Account)
 Link.hasMany(Click)
 Click.belongsTo(Link)
 
+Click.hasOne(View)
+View.belongsTo(Click)
+
 //Image associations
 User.belongsTo(Image)
 Account.belongsTo(Image)

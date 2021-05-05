@@ -1,5 +1,4 @@
 const Sequelize = require('sequelize')
-const { createHash, randomBytes } = require('crypto')
 
 const { setSaltAndPassword, encryptPassword } = require('./utility')
 const db = require('../database')
@@ -61,6 +60,7 @@ User.prototype.setPasswordResetToken = async function (token) {
   })
 }
 
+//Class Methods
 User.findByEmail = async function (email) {
   return this.findOne({
     where: {
