@@ -45,7 +45,7 @@ export const LinkAnalyticsLabel = ({ link }) => {
                   <Table.Body>
                     <Table.Row>
                       <Table.Cell>Clicks</Table.Cell>
-                      <Table.Cell>{clicks.length}</Table.Cell>
+                      <Table.Cell>{clicks?.length || 0}</Table.Cell>
                     </Table.Row>
                   </Table.Body>
                 </Table>
