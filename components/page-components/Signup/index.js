@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useRouter } from 'next/router'
 import {
   Header,
@@ -10,9 +10,10 @@ import {
   Icon,
   Message,
   Input,
-  Divider,
+  Container,
 } from 'semantic-ui-react'
 
+import { format } from '../../../utility/front-end'
 import { signupThunk } from '../../../redux/user'
 
 const initialSignupFormData = {
@@ -20,25 +21,36 @@ const initialSignupFormData = {
   firstName: '',
   lastName: '',
   password: '',
+  confirmPassword: '',
 }
 
 export const Signup = () => {
   const dispatch = useDispatch()
   const router = useRouter()
-  // const { slug: accountSlug } = router.query
 
   const [loading, setLoading] = useState(false)
   const [signupFormData, setSignupFormData] = useState(initialSignupFormData)
   const [accountSlug, setAccountSlug] = useState(router?.query?.slug || '')
 
-  const { email, password } = signupFormData
+  const { email, password, confirmPassword } = signupFormData
+
+  const handleSlugChange = (_event, { value }) => {
+    const formatedSlug = format.slug(value)
+    setAccountSlug(formatedSlug)
+  }
 
   const handleChange = (_event, { name, value }) => {
-    const formatedValue = value.replaceAll('[^a-zA-Z0-9]+', '')
-    setSignupFormData({
-      ...signupFormData,
-      [name]: formatedValue.toLowerCase(),
-    })
+    if (name === 'email') {
+      setSignupFormData({
+        ...signupFormData,
+        [name]: format.noSpaces(value),
+      })
+    } else {
+      setSignupFormData({
+        ...signupFormData,
+        [name]: value,
+      })
+    }
   }
 
   const handleSubmit = () => {
@@ -53,16 +65,18 @@ export const Signup = () => {
   }
 
   useEffect(() => setAccountSlug(router?.query?.slug), [router?.query?.slug])
-
+  const signupReady =
+    accountSlug?.length > 0 && email?.length > 5 && confirmPassword === password
   return (
-    <>
+    <Container>
       <Header as="h2" textAlign="center">
         Signup
       </Header>
       <Segment stacked>
         <Input
+          name="slug"
           style={{ marginBottom: '1em' }}
-          onChange={(_e, { value }) => setAccountSlug(value)}
+          onChange={handleSlugChange}
           value={accountSlug}
           fluid
           label="linksmart.app/"
@@ -88,8 +102,21 @@ export const Signup = () => {
             value={password}
             onChange={handleChange}
           />
+          <Form.Input
+            fluid
+            icon={
+              confirmPassword && confirmPassword === password ? 'check' : null
+            }
+            name="confirmPassword"
+            iconPosition="left"
+            placeholder="Confirm password"
+            type="password"
+            value={confirmPassword}
+            onChange={handleChange}
+          />
           <Button
             icon
+            disabled={!signupReady}
             labelPosition="right"
             loading={loading}
             primary
@@ -102,13 +129,15 @@ export const Signup = () => {
           </Button>
         </Form>
       </Segment>
-      <Message>
+      <Message info>
         Already have an account?{' '}
         <Link href="/login">
-          <a>Log in</a>
+          <a>
+            <u>Log in</u>
+          </a>
         </Link>
       </Message>
-    </>
+    </Container>
   )
 }
 
