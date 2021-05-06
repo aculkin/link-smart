@@ -4,7 +4,7 @@ const signup = async (req, res, next) => {
   try {
     const { email, firstName, lastName, password, accountSlug } = req.body
     const user = await User.create({
-      email,
+      email: email.toLowerCase(),
       password,
       firstName,
       lastName,
