@@ -2,7 +2,15 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useDispatch } from 'react-redux'
-import { Header, Segment, Form, Button, Icon, Message } from 'semantic-ui-react'
+import {
+  Header,
+  Segment,
+  Form,
+  Button,
+  Icon,
+  Message,
+  Container,
+} from 'semantic-ui-react'
 
 import { loginThunk } from '../../../redux/user'
 
@@ -28,7 +36,7 @@ export const Login = () => {
   }
 
   return (
-    <>
+    <Container>
       <Header as="h2" textAlign="center">
         Login
       </Header>
@@ -53,7 +61,6 @@ export const Login = () => {
             value={password}
             onChange={handleChange}
           />
-
           <Button
             icon
             labelPosition="left"
@@ -67,31 +74,16 @@ export const Login = () => {
             Login
           </Button>
         </Form>
-        {/* <Divider horizontal>Or</Divider>
-        <Button
-          icon
-          labelPosition="left"
-          color="google plus"
-          fluid
-          href="/auth/google"
-        >
-          <Icon name="google" />
-          Login with Google
-        </Button> */}
       </Segment>
-      <Message>
+      <Message info>
         New to us?{' '}
         <Link href="/signup">
-          <a>Click here to sign up</a>
+          <a>
+            <u>Click here to sign up</u>
+          </a>
         </Link>
       </Message>
-      {/* <Message>
-        Forgot your password?{' '}
-        <Link href="/forgot-password">
-          <a>Click here to reset it</a>
-        </Link>
-      </Message> */}
-    </>
+    </Container>
   )
 }
 
