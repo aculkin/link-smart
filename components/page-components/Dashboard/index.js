@@ -19,6 +19,7 @@ import { EditAccountModal } from '../../generic-components/EditAccountModal'
 import { NewAccountButton } from '../../generic-components/NewAccountButton'
 import { IphoneContainer } from '../../generic-components/IphoneContainer'
 import { ColorSelector } from '../../generic-components/ColorSelector'
+import { PageAnalyticsButton } from '../../generic-components/PageAnalyticsButton'
 import { Link } from '../../page-components/Link'
 import { formatSUIOptions, toast } from '../../../utility/front-end'
 
@@ -53,10 +54,11 @@ export const Dashboard = () => {
     <Container>
       <Header textAlign="center" as="h1">
         Dashboard: {selectedAccount?.name}
-        <Header.Subheader>
-          <b>{selectedAccount?.views?.length}</b> page views
-        </Header.Subheader>
       </Header>
+      <Container textAlign="center">
+        <PageAnalyticsButton account={selectedAccount} />
+      </Container>
+      <Divider />
       <Grid stackable>
         <Grid.Row>
           <Grid.Column width="3">
@@ -104,7 +106,6 @@ export const Dashboard = () => {
             </Button.Group>
           </Grid.Column>
         </Grid.Row>
-        <Divider />
         <Grid.Row>
           <Grid.Column width="8">
             {links.length > 0 ? (

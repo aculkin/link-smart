@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import { Item, Icon, Input } from 'semantic-ui-react'
+import { Item, Input } from 'semantic-ui-react'
 
 import { RemoveLinkIcon } from './RemoveLinkIcon'
 import { ActiveSwitch } from './ActiveSwitch'
 import { PassthroughIcon } from './PassthroughIcon'
 import { PriorityIcon } from './PriorityIcon'
-import { AnalyticsLabel } from './AnalyticsLabel'
+import { LinkAnalyticsLabel } from '../LinkAnalyticsLabel'
 import { editLinkThunk } from '../../../redux/links'
 
 export const DashboardLink = ({ link }) => {
@@ -70,7 +70,7 @@ export const DashboardLink = ({ link }) => {
           <ActiveSwitch toggleAttribute={toggleAttribute} active={active} />
         </Item.Description>
         <Item.Extra>
-          <AnalyticsLabel clicks={link?.clicks?.length || 0} />
+          <LinkAnalyticsLabel link={link} />
           <PassthroughIcon
             toggleAttribute={toggleAttribute}
             passthrough={passthrough}
