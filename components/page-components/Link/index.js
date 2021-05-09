@@ -7,11 +7,11 @@ import { API } from '../../../API'
 
 const getBackgroundStyle = (backgroundColor) => {
   if (backgroundColor?.length === 7) {
-    return { minHeight: '100vh', backgroundColor }
+    return { height: '100%', width: '100%', backgroundColor }
   } else if (backgroundColor?.length > 7) {
-    return { minHeight: '100vh', backgroundImage: backgroundColor }
+    return { height: '100%', width: '100%', backgroundImage: backgroundColor }
   } else {
-    return { minHeight: '100vh' }
+    return { height: '100%', width: '100%' }
   }
 }
 
@@ -36,7 +36,7 @@ export const Link = ({ account, preview }) => {
   }
 
   useEffect(registerView, [])
-  
+
   return (
     <div style={getBackgroundStyle(account?.backgroundColor)}>
       <Container fluid text textAlign="center">
