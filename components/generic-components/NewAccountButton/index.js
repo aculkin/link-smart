@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { Button, Modal, Icon, Input, Grid } from 'semantic-ui-react'
+import { Button, Modal, Icon, Input, Grid, Form } from 'semantic-ui-react'
 
 import { createAccountThunk } from '../../../redux/accounts'
 import { toast } from '../../../utility/front-end'
@@ -42,16 +42,15 @@ export const NewAccountButton = ({ setSelectedAccountId, ...props }) => {
 
   return (
     <>
-      <Button
+      <Form.Button
+        fluid
         color="green"
-        labelPosition="right"
-        icon
         {...props}
         onClick={() => setModalOpen(!modalOpen)}
       >
-        New page
         <Icon name="plus" />
-      </Button>
+        New
+      </Form.Button>
       <Modal
         closeIcon
         onClose={() => setModalOpen(false)}

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Button, Icon, Label, Modal, Menu } from 'semantic-ui-react'
+import { Button, Icon, Label, Modal, Menu, Form } from 'semantic-ui-react'
 
 import { Devices } from './Devices'
 import { Referrers } from './Referrers'
@@ -19,19 +19,12 @@ export const PageAnalyticsButton = ({ account }) => {
     setActiveTab(tabNumber || 1)
   }
 
-  const clickThroughRate = calculateClickThroughRate(account?.views)
-
   return (
     <>
-      <Button onClick={toggleOpen()} as="a" labelPosition="right">
-        <Button icon>
-          <Icon name="chart bar" />
-        </Button>
-        <Label>
-          Page Views:
-          <Label.Detail>{account?.views?.length || 0}</Label.Detail>
-        </Label>
-      </Button>
+      <Form.Button onClick={toggleOpen()} fluid >
+        <Icon name="chart bar" />
+        Views: {account?.views?.length || 0}
+      </Form.Button>
       <Modal
         centered={false}
         closeIcon
@@ -64,9 +57,6 @@ export const PageAnalyticsButton = ({ account }) => {
           {activeTab === 1 && <Views views={account?.views || []} />}
           {activeTab === 2 && <Referrers views={account?.views || []} />}
           {activeTab === 3 && <Devices views={account?.views || []} />}
-          {/* <p>
-            Click Through Rate: {(clickThroughRate * 100)?.toFixed(2) || '-'}%
-          </p> */}
         </Modal.Content>
       </Modal>
     </>
