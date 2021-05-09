@@ -1,14 +1,21 @@
-const iphoneStyle = {
-  maxWitdh: '100px',
-  minHeight: '400px',
-  border: '6px solid #000000',
-  borderRadius: '20px',
-  // padding: '5px',
-  margin: '5px',
-}
-
-export const IphoneContainer = ({ children }) => {
-  return <div style={iphoneStyle}>{children}</div>
+export const IphoneContainer = ({ children, backgroundColor = '#FFFFFF' }) => {
+  return (
+    <div className="smartphone">
+      <div className="content">
+        <div
+          style={{
+            backgroundColor,
+            padding: '10px',
+            width: '100%',
+            height: '100%',
+            overflowY: 'scroll',
+          }}
+        >
+          {children}
+        </div>
+      </div>
+    </div>
+  )
 }
 
 export default IphoneContainer
