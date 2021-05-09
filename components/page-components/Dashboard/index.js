@@ -1,37 +1,32 @@
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import {
-  Header,
-  Dropdown,
   Container,
   Divider,
-  Item,
   Segment,
   Grid,
-  Button,
-  Icon,
+  Menu,
+  Form,
 } from 'semantic-ui-react'
 
+import { Links } from './Links'
+import { Appearance } from './Appearance'
+import { Settings } from './Settings'
+import { Display } from './Display'
+
 import { getLinksThunk } from '../../../redux/links'
-import { DashboardLink } from '../../generic-components/DashboardLink'
-import { NewLinkButton } from '../../generic-components/NewLinkButton'
-import { EditAccountModal } from '../../generic-components/EditAccountModal'
 import { NewAccountButton } from '../../generic-components/NewAccountButton'
-import { IphoneContainer } from '../../generic-components/IphoneContainer'
-import { ColorSelector } from '../../generic-components/ColorSelector'
 import { PageAnalyticsButton } from '../../generic-components/PageAnalyticsButton'
-import { Link } from '../../page-components/Link'
-import { formatSUIOptions, toast } from '../../../utility/front-end'
+import { formatSUIOptions } from '../../../utility/front-end'
 
 export const Dashboard = () => {
   const dispatch = useDispatch()
+  const [activeMenu, setActiveMenu] = useState('Links')
   const [selectedAccountId, setSelectedAccountId] = useState(0)
   const accounts = useSelector((state) => state.accounts)
-  const links = useSelector((state) => state.links)
 
-  const copyToClipboard = (text) => () => {
-    navigator.clipboard.writeText(text)
-    toast(`Your link has been copied to your clipboard`, 'positive')
+  const changeMenu = (menuItem = 'Links') => () => {
+    setActiveMenu(menuItem)
   }
 
   const refreshLinks = () => {
@@ -51,104 +46,62 @@ export const Dashboard = () => {
   )
 
   return (
-    <Container>
-      <Header textAlign="center" as="h1">
-        Dashboard: {selectedAccount?.name}
-      </Header>
-      <Container textAlign="center">
-        <PageAnalyticsButton account={selectedAccount} />
-      </Container>
-      <Divider />
+    <Container style={{ paddingTop: '10px' }}>
       <Grid stackable>
         <Grid.Row>
-          <Grid.Column width="3">
-            <NewAccountButton
-              fluid
-              setSelectedAccountId={setSelectedAccountId}
-            />
-          </Grid.Column>
-          <Grid.Column width="3">
-            <Dropdown
-              fluid
-              value={selectedAccountId}
-              onChange={(_e, { value }) => {
-                console.log('CHANGING')
-                setSelectedAccountId(value)
-              }}
-              placeholder="Account"
-              selection
-              options={formatSUIOptions(accounts)}
-            />
-          </Grid.Column>
-          <Grid.Column width="4">
-            <EditAccountModal account={selectedAccount} />
-          </Grid.Column>
-          <Grid.Column width="6">
-            <Button.Group fluid>
-              <Button
-                icon
-                labelPosition="left"
-                primary
-                onClick={copyToClipboard(
-                  `linksmart.app/${selectedAccount?.slug}`
-                )}
-              >
-                Copy link <Icon name="copy" />
-              </Button>
-              <Button
-                icon
-                labelPosition="right"
-                href={`/${selectedAccount?.slug}`}
-                target="_blank"
-              >
-                linksmart.app/{selectedAccount?.slug} <Icon name="external" />
-              </Button>
-            </Button.Group>
-          </Grid.Column>
-        </Grid.Row>
-        <Grid.Row>
           <Grid.Column width="8">
-            {links.length > 0 ? (
-              <>
-                <Segment attached>
-                  <Item.Group divided>
-                    {links.map((link, index) => {
-                      return (
-                        <DashboardLink key={link?.id || index} link={link} />
-                      )
-                    })}
-                  </Item.Group>
-                </Segment>
-                <NewLinkButton
-                  accountId={selectedAccountId}
-                  attached="bottom"
+            <Form>
+              <Form.Group widths="equal">
+                <Form.Dropdown
+                  fluid
+                  value={selectedAccountId}
+                  onChange={(_e, { value }) => {
+                    console.log('CHANGING')
+                    setSelectedAccountId(value)
+                  }}
+                  placeholder="Account"
+                  selection
+                  options={formatSUIOptions(accounts)}
                 />
-              </>
-            ) : (
-              <Segment placeholder>
-                <Header icon>
-                  <Icon name="chain" />
-                  No links for this account, click the button below to add one!
-                </Header>
-                <NewLinkButton accountId={selectedAccountId} />
-              </Segment>
-            )}
-          </Grid.Column>
-          <Grid.Column width="4">
-            <Segment>
-              <ColorSelector account={selectedAccount} />
+                <NewAccountButton setSelectedAccountId={setSelectedAccountId} />
+                <PageAnalyticsButton account={selectedAccount} />
+              </Form.Group>
+            </Form>
+
+            <Menu attached="top" tabular>
+              <Menu.Item
+                onClick={changeMenu('Links')}
+                active={activeMenu === 'Links'}
+              >
+                Links
+              </Menu.Item>
+              <Menu.Item
+                onClick={changeMenu('Appearance')}
+                active={activeMenu === 'Appearance'}
+              >
+                Appearance
+              </Menu.Item>
+              <Menu.Item
+                onClick={changeMenu('Settings')}
+                active={activeMenu === 'Settings'}
+              >
+                Settings
+              </Menu.Item>
+            </Menu>
+            <Segment attached="bottom">
+              {activeMenu === 'Links' && (
+                <Links selectedAccountId={selectedAccountId} />
+              )}
+              {activeMenu === 'Appearance' && (
+                <Appearance selectedAccount={selectedAccount} />
+              )}
+              {activeMenu === 'Settings' && (
+                <Settings selectedAccount={selectedAccount} />
+              )}
             </Segment>
           </Grid.Column>
-          <Grid.Column width="4">
-            <IphoneContainer>
-              <Link
-                account={{
-                  ...selectedAccount,
-                  links: links.filter((link) => link?.active && link?.url),
-                }}
-                preview={true}
-              />
-            </IphoneContainer>
+          <Grid.Column width="8">
+            <Display selectedAccount={selectedAccount} />
           </Grid.Column>
         </Grid.Row>
       </Grid>
