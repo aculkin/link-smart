@@ -7,6 +7,9 @@ module.exports = {
     await queryInterface.removeColumn('clicks', 'mobile')
     await queryInterface.removeColumn('clicks', 'deviceType')
     await queryInterface.removeColumn('clicks', 'country')
+    await queryInterface.sequelize.query(
+      'DROP TYPE IF EXISTS "enum_clicks_socialClickType"'
+    )
     await queryInterface.addColumn('clicks', 'socialClickType', {
       type: Sequelize.ENUM(clicks.socialClickType.options),
     })
@@ -42,6 +45,9 @@ module.exports = {
     await queryInterface.removeColumn('accounts', 'displaySocial')
     await queryInterface.removeColumn('accounts', 'displaySocialBottom')
     await queryInterface.removeColumn('clicks', 'socialClickType')
+    await queryInterface.sequelize.query(
+      'DROP TYPE IF EXISTS "enum_clicks_socialClickType"'
+    )
     await queryInterface.addColumn('clicks', 'mobile', {
       type: Sequelize.BOOLEAN,
     })
