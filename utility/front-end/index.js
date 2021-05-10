@@ -6,3 +6,4 @@ export { default as calculateClickThroughRate } from './calculateClickThroughRat
 export { default as countObjectArrayAttributeValues } from './countObjectArrayAttributeValues'
 export { default as format } from './format'
 export { default as copyToClipboard } from './copyToClipboard'
+export { default as convertUrl } from './convertUrl'
