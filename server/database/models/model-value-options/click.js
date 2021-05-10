@@ -17,6 +17,6 @@ const socialClickTypeOptions = [FACEBOOK, INSTAGRAM, LINKEDIN, YOUTUBE, TIK_TOK]
 module.exports = {
   socialClickType: {
     options: socialClickTypeOptions,
-    constatns: SOCIAL_CLICK_TYPE_CONSTANTS,
+    constants: SOCIAL_CLICK_TYPE_CONSTANTS,
   },
 }

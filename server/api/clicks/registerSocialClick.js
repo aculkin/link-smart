@@ -1,11 +1,11 @@
 const { Click, View } = require('../../database/models')
 
-const addClick = async (req, res, next) => {
+const registerSocialClick = async (req, res, next) => {
   try {
-    const { linkId } = req.params
+    const { socialClickType } = req.params
     const { viewId } = req.body
     if (viewId) {
-      const createdClick = await Click.create({ linkId })
+      const createdClick = await Click.create({ socialClickType })
       const view = await View.findByPk(viewId)
       await view.update({ clickId: createdClick.id })
       res.status(200).send()
@@ -17,4 +17,4 @@ const addClick = async (req, res, next) => {
   }
 }
 
-module.exports = addClick
+module.exports = registerSocialClick
