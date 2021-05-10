@@ -2,17 +2,13 @@ const Sequelize = require('sequelize')
 
 const db = require('../database')
 
+const { clicks } = require('./model-value-options')
+
 const Click = db.define(
   'click',
   {
-    mobile: {
-      type: Sequelize.BOOLEAN,
-    },
-    deviceType: {
-      type: Sequelize.STRING,
-    },
-    country: {
-      type: Sequelize.STRING,
+    socialClickType: {
+      type: Sequelize.ENUM(clicks.socialClickType.options),
     },
   },
   {
