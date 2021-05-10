@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import Head from 'next/head'
 import { Header, Container, Image } from 'semantic-ui-react'
+import { SocialMediaIconGroup } from '../../generic-components/SocialMediaIconGroup'
 import { LinkList } from '../../generic-components/LinkList'
 import { getReferrer, getDeviceType } from '../../../utility/front-end'
 import { API } from '../../../API'
@@ -55,6 +56,9 @@ export const Link = ({ account, preview }) => {
           {account?.name}
           <Header.Subheader>@{account?.slug}</Header.Subheader>
         </Header>
+        {!account?.displaySocialBottom && (
+          <SocialMediaIconGroup account={account} preview={preview} />
+        )}
         <LinkList
           viewId={viewId}
           links={account?.links || []}
@@ -62,6 +66,9 @@ export const Link = ({ account, preview }) => {
           priorityColor={account?.priorityColor}
           linkColor={account?.linkColor}
         />
+        {account?.displaySocialBottom && (
+          <SocialMediaIconGroup account={account} preview={preview} />
+        )}
       </Container>
     </div>
   )

@@ -31,6 +31,13 @@ const getAccountWithLinks = async (slug) => {
         'backgroundColor',
         'linkColor',
         'priorityColor',
+        'displaySocial',
+        'facebookUrl',
+        'instagramUrl',
+        'linkedInUrl',
+        'youtubeUrl',
+        'tikTokUrl',
+        'displaySocialBottom',
       ],
     })
     return JSON.parse(JSON.stringify(account))
