@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import { Form } from 'semantic-ui-react'
+import { TwitterPicker } from 'react-color'
+import { Form, Divider, Header } from 'semantic-ui-react'
 
 import { BackgroundColorPicker } from '../BackgroundColorPicker'
 import { editAccountThunk } from '../../../redux/accounts'
@@ -90,6 +91,14 @@ export const ColorSelector = ({ account }) => {
     )
     setColors({ ...colors, [name]: value })
   }
+  const onBackgroundColorChange = (color) => {
+    dispatch(
+      editAccountThunk({
+        accountId: account?.id,
+        accountDetails: { ...account, backgroundColor: color?.hex || null },
+      })
+    )
+  }
 
   useEffect(() => {
     setColors({
@@ -122,8 +131,13 @@ export const ColorSelector = ({ account }) => {
           options={colorOptions}
           value={account?.priorityColor}
         />
-        <BackgroundColorPicker account={account} />
       </Form>
+      <Header as="h5">Background Color</Header>
+      <TwitterPicker
+        triangle="hide"
+        color={account?.backgroundColor || '#FFFFFF'}
+        onChangeComplete={onBackgroundColorChange}
+      />
     </>
   )
 }
