@@ -16,7 +16,9 @@ export const accountsReducer = (
       return [...state, payload]
     case types.EDIT_ACCOUNT:
       return state.map((account) =>
-        account.id === payload.id ? payload : account
+        account.id === payload.id
+          ? { ...payload, views: account.views }
+          : account
       )
     case types.REMOVE_ACCOUNT:
       return state.filter((account) => account.id !== payload)
