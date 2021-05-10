@@ -1,7 +1,11 @@
 import { useRouter } from 'next/router'
 import { Icon } from 'semantic-ui-react'
 
-export const SocialMediaIconGroup = ({ account, preview }) => {
+import { API } from '../../../API'
+import { clicks } from '../../../server/database/models/model-value-options'
+import { convertUrl } from '../../../utility/front-end'
+
+export const SocialMediaIconGroup = ({ account, preview, viewId }) => {
   const router = useRouter()
   const {
     displaySocial,
@@ -13,12 +17,17 @@ export const SocialMediaIconGroup = ({ account, preview }) => {
     linkColor,
   } = account
 
-  const goToLink = (link) => () => {
-    if (link.startsWith('https://') || link.startsWith('http://')) {
-      router.push(link)
-    } else {
-      router.push(`https://${link}`)
+  const goToLink = (link, linkType) => async () => {
+    const correctUrl = convertUrl(link)
+    try {
+      const clickDetails = { viewId }
+      if (process.browser && !preview) {
+        await API.clicks.registerSocialClick(linkType, clickDetails)
+      }
+    } catch (error) {
+      console.log(error)
     }
+    router.push(correctUrl)
   }
 
   return (
@@ -27,7 +36,10 @@ export const SocialMediaIconGroup = ({ account, preview }) => {
         <>
           {facebookUrl && (
             <Icon
-              onClick={goToLink(facebookUrl)}
+              onClick={goToLink(
+                facebookUrl,
+                clicks.socialClickType.constants.FACEBOOK
+              )}
               color={linkColor}
               circular
               inverted
@@ -37,7 +49,10 @@ export const SocialMediaIconGroup = ({ account, preview }) => {
           )}
           {instagramUrl && (
             <Icon
-              onClick={goToLink(facebookUrl)}
+              onClick={goToLink(
+                instagramUrl,
+                clicks.socialClickType.constants.INSTAGRAM
+              )}
               color={linkColor}
               circular
               inverted
@@ -47,7 +62,10 @@ export const SocialMediaIconGroup = ({ account, preview }) => {
           )}
           {linkedInUrl && (
             <Icon
-              onClick={goToLink(facebookUrl)}
+              onClick={goToLink(
+                linkedInUrl,
+                clicks.socialClickType.constants.LINKEDIN
+              )}
               color={linkColor}
               circular
               inverted
@@ -57,7 +75,10 @@ export const SocialMediaIconGroup = ({ account, preview }) => {
           )}
           {youtubeUrl && (
             <Icon
-              onClick={goToLink(facebookUrl)}
+              onClick={goToLink(
+                youtubeUrl,
+                clicks.socialClickType.constants.YOUTUBE
+              )}
               color={linkColor}
               circular
               inverted
@@ -67,7 +88,10 @@ export const SocialMediaIconGroup = ({ account, preview }) => {
           )}
           {tikTokUrl && (
             <Icon
-              onClick={goToLink(tikTokUrl)}
+              onClick={goToLink(
+                tikTokUrl,
+                clicks.socialClickType.constants.TIK_TOK
+              )}
               color={linkColor}
               circular
               inverted

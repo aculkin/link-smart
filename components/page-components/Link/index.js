@@ -57,7 +57,11 @@ export const Link = ({ account, preview }) => {
           <Header.Subheader>@{account?.slug}</Header.Subheader>
         </Header>
         {!account?.displaySocialBottom && (
-          <SocialMediaIconGroup account={account} preview={preview} />
+          <SocialMediaIconGroup
+            account={account}
+            preview={preview}
+            viewId={viewId}
+          />
         )}
         <LinkList
           viewId={viewId}
@@ -67,7 +71,11 @@ export const Link = ({ account, preview }) => {
           linkColor={account?.linkColor}
         />
         {account?.displaySocialBottom && (
-          <SocialMediaIconGroup account={account} preview={preview} />
+          <SocialMediaIconGroup
+            account={account}
+            preview={preview}
+            viewId={viewId}
+          />
         )}
       </Container>
     </div>

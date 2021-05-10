@@ -28,6 +28,7 @@ export const routes = {
   clicks: {
     base: '/api/clicks',
     recordClick: (linkId) => `/api/clicks/link/${linkId}`,
+    recordSocialClick: (socialType) => `/api/clicks/social/${socialType}`,
   },
   views: {
     base: '/api/views',
