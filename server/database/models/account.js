@@ -22,6 +22,27 @@ const Account = db.define(
     priorityColor: {
       type: Sequelize.STRING,
     },
+    facebookUrl: {
+      type: Sequelize.STRING,
+    },
+    instagramUrl: {
+      type: Sequelize.STRING,
+    },
+    linkedInUrl: {
+      type: Sequelize.STRING,
+    },
+    youtubeUrl: {
+      type: Sequelize.STRING,
+    },
+    tikTokUrl: {
+      type: Sequelize.STRING,
+    },
+    displaySocial: {
+      type: Sequelize.BOOLEAN,
+    },
+    displaySocialBottom: {
+      type: Sequelize.BOOLEAN,
+    },
   },
   {
     paranoid: true,
