@@ -1,15 +1,16 @@
 import { useRouter } from 'next/router'
 import { Button } from 'semantic-ui-react'
 import { API } from '../../../API'
+import { convertUrl } from '../../../utility/front-end'
 
-const convertUrl = (uneditedUrl) => {
-  const url = uneditedUrl.toLowerCase()
-  if (url.startsWith('http://') || url.startsWith('https://')) {
-    return url
-  } else {
-    return `https://${url}`
-  }
-}
+// const convertUrl = (uneditedUrl) => {
+//   const url = uneditedUrl.toLowerCase()
+//   if (url.startsWith('http://') || url.startsWith('https://')) {
+//     return url
+//   } else {
+//     return `https://${url}`
+//   }
+// }
 
 export const Link = ({ link, preview, priorityColor, linkColor, viewId }) => {
   const router = useRouter()
